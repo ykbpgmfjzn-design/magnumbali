@@ -2,10 +2,11 @@ import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import AboutSection from "@/components/AboutSection";
+import InvestmentCalculator from "@/components/InvestmentCalculator";
 import InvestmentsSection from "@/components/InvestmentsSection";
-import ContactForm from "@/components/ContactForm";
+import LeadCaptureForm from "@/components/LeadCaptureForm";
 import Footer from "@/components/Footer";
-import ChatWidget from "@/components/ChatWidget";
+import AIChatWidget from "@/components/AIChatWidget";
 
 const Index = () => {
   return (
@@ -13,11 +14,12 @@ const Index = () => {
       <Header />
       <HeroSection />
       <ProjectsSection />
+      <InvestmentCalculator />
       <AboutSection />
       <InvestmentsSection />
-      <ContactForm />
+      <LeadCaptureForm />
       <Footer />
-      <ChatWidget />
+      <AIChatWidget />
     </main>
   );
 };
