@@ -1,7 +1,6 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { MapPin, Bed, Bath, Maximize } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { useRef, useState } from "react";
+import { MapPin, Bed, Bath, Maximize, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import villaInterior from "@/assets/villa-interior.jpg";
 import villaExterior from "@/assets/villa-exterior.jpg";
@@ -18,6 +17,7 @@ const projects = [
     area: 350,
     image: villaInterior,
     roi: "14%",
+    status: "Готов",
   },
   {
     id: 2,
@@ -29,6 +29,7 @@ const projects = [
     area: 280,
     image: villaExterior,
     roi: "12%",
+    status: "Строится",
   },
   {
     id: 3,
@@ -40,12 +41,14 @@ const projects = [
     area: 420,
     image: villaTerrace,
     roi: "15%",
+    status: "Готов",
   },
 ];
 
 const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
@@ -53,18 +56,49 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.6, delay: index * 0.2 }}
-      className="group glass-card overflow-hidden"
+      className="group glass-card overflow-hidden cursor-pointer"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative overflow-hidden aspect-[4/3]">
-        <img
+        {/* Image with zoom effect */}
+        <motion.img
           src={project.image}
           alt={project.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className="w-full h-full object-cover"
+          animate={{ scale: isHovered ? 1.1 : 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />
+        
+        {/* Overlay Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+        
+        {/* Status Badge */}
+        <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium ${
+          project.status === "Готов" 
+            ? "bg-green-500/20 text-green-400 border border-green-500/30"
+            : "bg-primary/20 text-primary border border-primary/30"
+        }`}>
+          {project.status}
+        </div>
+
+        {/* ROI Badge */}
         <div className="absolute top-4 right-4 glass px-3 py-1 rounded-full text-sm font-medium text-primary">
           ROI {project.roi}
         </div>
+
+        {/* Sliding CTA Button */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 p-4"
+          initial={{ y: 60, opacity: 0 }}
+          animate={{ y: isHovered ? 0 : 60, opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          <Button variant="glow" className="w-full group/btn">
+            Узнать доходность
+            <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
+          </Button>
+        </motion.div>
       </div>
 
       <div className="p-6">
@@ -73,26 +107,26 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
           {project.location}
         </div>
 
-        <h3 className="text-2xl font-serif font-bold text-foreground mb-4">
+        <h3 className="text-2xl font-serif font-bold text-foreground mb-4 group-hover:text-gradient-gold transition-all duration-300">
           {project.name}
         </h3>
 
         <div className="flex items-center gap-4 text-muted-foreground text-sm mb-6">
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             <Bed className="w-4 h-4" />
             <span>{project.bedrooms}</span>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             <Bath className="w-4 h-4" />
             <span>{project.bathrooms}</span>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             <Maximize className="w-4 h-4" />
             <span>{project.area} м²</span>
           </div>
         </div>
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between pt-4 border-t border-border/30">
           <span className="text-2xl font-bold text-gradient-gold">{project.price}</span>
           <Button variant="outline" size="sm">
             Подробнее
@@ -109,9 +143,15 @@ const ProjectsSection = () => {
 
   return (
     <section id="projects" className="py-24 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+      {/* Parallax Background Element */}
+      <motion.div
+        className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-30 parallax-slow"
+        style={{
+          background: "radial-gradient(circle, hsl(42 85% 55% / 0.1) 0%, transparent 70%)",
+        }}
+      />
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
@@ -126,7 +166,7 @@ const ProjectsSection = () => {
             Откройте мир <span className="text-gradient-gold">премиальной</span> недвижимости
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Коллекция эксклюзивных объектов в самых престижных локациях острова для жизни и инвестиций
+            Коллекция эксклюзивных объектов в самых престижных локациях острова
           </p>
         </motion.div>
 
@@ -142,8 +182,9 @@ const ProjectsSection = () => {
           transition={{ delay: 0.8 }}
           className="text-center mt-12"
         >
-          <Button variant="glow" size="lg">
+          <Button variant="glass" size="lg">
             Все проекты
+            <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </motion.div>
       </div>
