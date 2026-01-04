@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { ArrowDown, TrendingUp, Building2, Shield } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroAnimatedBg from "@/assets/hero-animated-bg.webp";
 
@@ -13,12 +13,6 @@ const HeroSection = () => {
 
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-  const stats = [
-    { icon: TrendingUp, value: "ROI до 15%", label: "Годовая доходность" },
-    { icon: Building2, value: "500+", label: "Объектов" },
-    { icon: Shield, value: "360°", label: "Управление" },
-  ];
-
   return (
     <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 sm:pt-0">
       {/* Animated WebP Background */}
@@ -26,7 +20,7 @@ const HeroSection = () => {
         <img
           src={heroAnimatedBg}
           alt=""
-          className="w-full h-full object-contain md:object-cover object-top"
+          className="w-full h-full object-cover md:object-contain object-center"
         />
       </div>
 
@@ -77,7 +71,11 @@ const HeroSection = () => {
           </h1>
 
           <motion.p
-            className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 sm:mb-12 px-4 leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-foreground/90 max-w-2xl mx-auto mb-8 sm:mb-12 px-6 py-4 sm:px-8 sm:py-5 leading-relaxed rounded-2xl backdrop-blur-sm"
+            style={{
+              background: "linear-gradient(135deg, rgba(10, 10, 10, 0.7) 0%, rgba(10, 10, 10, 0.5) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.05)",
+            }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
@@ -99,34 +97,6 @@ const HeroSection = () => {
               Рассчитать доходность
             </Button>
           </motion.div>
-        </motion.div>
-
-        {/* Stats Card - Always visible, separate from fade effect */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
-          className="glass-card-gold p-6 sm:p-8 max-w-3xl mx-auto mt-8 sm:mt-12"
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2 + index * 0.15 }}
-                className="flex flex-col items-center text-center group"
-              >
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-primary/20 transition-colors group-hover:animate-pulse-glow">
-                  <stat.icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
-                </div>
-                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gradient-gold mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-xs sm:text-sm text-muted-foreground px-2">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
         </motion.div>
 
         {/* Scroll Indicator */}

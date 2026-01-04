@@ -16,6 +16,20 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.querySelector(sectionId);
+    if (element) {
+      const headerOffset = 80; // Height of fixed header
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
+
   const navLinks = [
     { name: "Объекты", href: "#projects" },
     { name: "Калькулятор", href: "#calculator" },
@@ -54,9 +68,9 @@ const Header = () => {
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8">
           {navLinks.map((link, index) => (
-            <motion.a
+            <motion.button
               key={link.name}
-              href={link.href}
+              onClick={() => scrollToSection(link.href)}
               className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors duration-300 relative group"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -64,7 +78,7 @@ const Header = () => {
             >
               {link.name}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-primary/50 transition-all duration-300 group-hover:w-full" />
-            </motion.a>
+            </motion.button>
           ))}
         </nav>
 
@@ -94,6 +108,7 @@ const Header = () => {
         isOpen={isMobileMenuOpen}
         navLinks={navLinks}
         onClose={() => setIsMobileMenuOpen(false)}
+        scrollToSection={scrollToSection}
       />
     </motion.header>
   );
@@ -103,12 +118,19 @@ const AnimatedMobileMenu = ({
   isOpen,
   navLinks,
   onClose,
+  scrollToSection,
 }: {
   isOpen: boolean;
   navLinks: { name: string; href: string }[];
   onClose: () => void;
+  scrollToSection: (sectionId: string) => void;
 }) => {
   if (!isOpen) return null;
+
+  const handleLinkClick = (href: string) => {
+    scrollToSection(href);
+    onClose();
+  };
 
   return (
     <motion.div
@@ -119,14 +141,13 @@ const AnimatedMobileMenu = ({
     >
       <nav className="flex flex-col gap-3 sm:gap-4">
         {navLinks.map((link) => (
-          <a
+          <button
             key={link.name}
-            href={link.href}
-            className="text-base sm:text-lg text-foreground/80 hover:text-primary transition-colors py-3 sm:py-4 border-b border-border/30 last:border-0 touch-manipulation"
-            onClick={onClose}
+            onClick={() => handleLinkClick(link.href)}
+            className="text-base sm:text-lg text-foreground/80 hover:text-primary transition-colors py-3 sm:py-4 border-b border-border/30 last:border-0 touch-manipulation text-left"
           >
             {link.name}
-          </a>
+          </button>
         ))}
         <Button variant="glow" className="mt-2 sm:mt-4 w-full py-6 text-base font-semibold touch-manipulation">
           Получить консультацию

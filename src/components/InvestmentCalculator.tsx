@@ -23,25 +23,53 @@ const InvestmentCalculator = () => {
   
   const [investment, setInvestment] = useState(350000);
   const [period, setPeriod] = useState(3);
+  const [rentalROI, setRentalROI] = useState(14); // 14% default rental income
 
   // Calculate returns
-  const annualROI = 0.14; // 14% average
-  const appreciation = 0.5; // 50% over period
-  
-  const rentalIncome = investment * annualROI * period;
-  const propertyGrowth = investment * appreciation;
+  const annualROI = rentalROI / 100; // Convert percentage to decimal
+
+  // Property appreciation calculation:
+  // Year 1: +25%
+  // Year 2: +25%
+  // Years 3+: +10% per year (compound)
+  const calculateAppreciation = (initialValue: number, years: number) => {
+    let currentValue = initialValue;
+
+    // Year 1: +25%
+    if (years >= 1) {
+      currentValue = currentValue * 1.25;
+    }
+
+    // Year 2: another +25%
+    if (years >= 2) {
+      currentValue = currentValue * 1.25;
+    }
+
+    // Years 3+: +10% compound growth each year
+    if (years > 2) {
+      const additionalYears = years - 2;
+      currentValue = currentValue * Math.pow(1.1, additionalYears);
+    }
+
+    return currentValue - initialValue; // Total appreciation
+  };
+
+  // Rental income starts from year 3
+  const rentalYears = period > 2 ? period - 2 : 0;
+  const rentalIncome = investment * annualROI * rentalYears;
+  const propertyGrowth = calculateAppreciation(investment, period);
   const totalReturn = rentalIncome + propertyGrowth;
   const totalValue = investment + totalReturn;
 
   const investmentOptions = [
-    { min: 150000, max: 250000, label: "$150K - $250K" },
-    { min: 250000, max: 400000, label: "$250K - $400K" },
-    { min: 400000, max: 700000, label: "$400K - $700K" },
-    { min: 700000, max: 1500000, label: "$700K+" },
+    { value: 200000, label: "$200K" },
+    { value: 400000, label: "$400K" },
+    { value: 700000, label: "$700K" },
+    { value: 1200000, label: "$1.2M" },
   ];
 
   return (
-    <section className="py-12 sm:py-16 md:py-24 relative overflow-hidden">
+    <section id="calculator" className="py-12 sm:py-16 md:py-24 relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
@@ -120,6 +148,26 @@ const InvestmentCalculator = () => {
                   </div>
                 </div>
 
+                {/* Rental ROI */}
+                <div>
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-2">
+                    <label className="text-base sm:text-lg font-medium text-foreground">Доход от аренды</label>
+                    <span className="text-xl sm:text-2xl font-bold text-gradient-gold">{rentalROI}%</span>
+                  </div>
+                  <Slider
+                    value={[rentalROI]}
+                    onValueChange={(value) => setRentalROI(value[0])}
+                    min={6}
+                    max={15}
+                    step={1}
+                    className="w-full"
+                  />
+                  <div className="flex justify-between text-sm text-muted-foreground mt-3">
+                    <span>6%</span>
+                    <span>15%</span>
+                  </div>
+                </div>
+
                 {/* Quick Select Buttons */}
                 <div>
                   <label className="text-xs sm:text-sm font-medium text-muted-foreground mb-3 block">Быстрый выбор</label>
@@ -127,9 +175,9 @@ const InvestmentCalculator = () => {
                     {investmentOptions.map((option, index) => (
                       <button
                         key={index}
-                        onClick={() => setInvestment((option.min + option.max) / 2)}
+                        onClick={() => setInvestment(option.value)}
                         className={`py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 touch-manipulation ${
-                          investment >= option.min && investment <= option.max
+                          investment === option.value
                             ? "bg-primary/20 text-primary border border-primary/30"
                             : "glass hover:bg-primary/10 text-foreground/70"
                         }`}
@@ -157,7 +205,9 @@ const InvestmentCalculator = () => {
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="text-xs sm:text-sm text-muted-foreground">Доход от аренды</p>
-                        <p className="text-xs text-muted-foreground/60">за {period} года</p>
+                        <p className="text-xs text-muted-foreground/60">
+                          {period <= 2 ? `${rentalROI}% годовых с 3-го года` : `${rentalROI}% за ${rentalYears} ${rentalYears === 1 ? 'год' : 'года'}`}
+                        </p>
                       </div>
                     </div>
                     <div className="text-lg sm:text-xl md:text-2xl font-bold text-foreground animate-number-count text-right sm:text-left">
@@ -178,7 +228,9 @@ const InvestmentCalculator = () => {
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="text-xs sm:text-sm text-muted-foreground">Рост стоимости</p>
-                        <p className="text-xs text-muted-foreground/60">+50% за период</p>
+                        <p className="text-xs text-muted-foreground/60">
+                          {period === 1 ? '+25% в 1-й год' : period === 2 ? '+25% в 1-й и 2-й год' : '+25%+25% + 10%/год'}
+                        </p>
                       </div>
                     </div>
                     <div className="text-lg sm:text-xl md:text-2xl font-bold text-foreground text-right sm:text-left">

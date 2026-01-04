@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Instagram, Send, Youtube, Phone, MapPin } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   const links = {
@@ -31,12 +32,23 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center flex-shrink-0">
-                <span className="text-lg sm:text-xl font-serif font-bold text-primary-foreground">M</span>
-              </div>
-              <span className="text-xl sm:text-2xl font-serif font-bold text-gradient-gold">
-                MAGNUM ESTATE
-              </span>
+              <motion.a
+                href="#"
+                className="flex items-center"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="relative">
+                  {/* Glow effect behind logo */}
+                  <div className="absolute inset-0 blur-xl bg-primary/30 scale-150 opacity-60" />
+                  {/* Drop shadow for contrast on any background */}
+                  <img
+                    src={logo}
+                    alt="Magnum Estate"
+                    className="h-8 sm:h-10 md:h-12 w-auto relative z-10 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] brightness-110 contrast-110"
+                  />
+                </div>
+              </motion.a>
             </div>
             <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 max-w-md leading-relaxed">
               Ведущий девелопер премиальной недвижимости на Бали. 
