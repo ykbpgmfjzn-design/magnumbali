@@ -66,18 +66,28 @@ const Header = () => {
         </motion.a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-2">
           {navLinks.map((link, index) => (
             <motion.button
               key={link.name}
               onClick={() => scrollToSection(link.href)}
-              className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors duration-300 relative group"
+              className="relative px-5 py-2.5 text-sm font-medium text-foreground/80 rounded-full overflow-hidden group transition-all duration-300 hover:text-primary-foreground"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 + 0.3 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-primary/50 transition-all duration-300 group-hover:w-full" />
+              {/* Background glow effect on hover */}
+              <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/0 to-primary/0 group-hover:from-primary group-hover:via-primary/90 group-hover:to-primary/80 transition-all duration-300 rounded-full" />
+              {/* Subtle border */}
+              <span className="absolute inset-0 rounded-full border border-foreground/10 group-hover:border-primary/50 transition-all duration-300" />
+              {/* Shimmer effect on hover */}
+              <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              </span>
+              {/* Text */}
+              <span className="relative z-10">{link.name}</span>
             </motion.button>
           ))}
         </nav>
@@ -139,15 +149,22 @@ const AnimatedMobileMenu = ({
       exit={{ opacity: 0, height: 0 }}
       className="lg:hidden glass-card mt-2 mx-3 sm:mx-4 p-4 sm:p-6 rounded-xl"
     >
-      <nav className="flex flex-col gap-3 sm:gap-4">
+      <nav className="flex flex-col gap-2 sm:gap-3">
         {navLinks.map((link) => (
-          <button
+          <motion.button
             key={link.name}
             onClick={() => handleLinkClick(link.href)}
-            className="text-base sm:text-lg text-foreground/80 hover:text-primary transition-colors py-3 sm:py-4 border-b border-border/30 last:border-0 touch-manipulation text-left"
+            className="relative text-base sm:text-lg text-foreground/80 py-3 sm:py-4 px-4 rounded-xl overflow-hidden group touch-manipulation text-left transition-all duration-300"
+            whileHover={{ scale: 1.02, x: 8 }}
+            whileTap={{ scale: 0.98 }}
           >
-            {link.name}
-          </button>
+            {/* Background effect */}
+            <span className="absolute inset-0 bg-gradient-to-r from-primary/0 to-primary/0 group-hover:from-primary/20 group-hover:to-primary/5 transition-all duration-300 rounded-xl" />
+            {/* Left accent bar */}
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-primary rounded-full group-hover:h-1/2 transition-all duration-300" />
+            {/* Text */}
+            <span className="relative z-10 group-hover:text-primary transition-colors duration-300">{link.name}</span>
+          </motion.button>
         ))}
         <Button variant="glow" className="mt-2 sm:mt-4 w-full py-6 text-base font-semibold touch-manipulation">
           Получить консультацию
