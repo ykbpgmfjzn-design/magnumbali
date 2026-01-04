@@ -3,10 +3,8 @@ import { motion } from "framer-motion";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { MapPin, Building2, Phone, Mail } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
-const MAPBOX_TOKEN_KEY = "magnum_mapbox_token";
+const MAPBOX_TOKEN = "pk.eyJ1Ijoic2Fkc3RhbCIsImEiOiJjbWp5enl3cHEyZ21xM3RxMmNhNWVvaWp2In0.hDuSWUHwvLTJx8rfxQixFQ";
 
 const locations = [
   {
@@ -54,23 +52,12 @@ const MapSection = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const [selectedLocation, setSelectedLocation] = useState(locations[0]);
-  const [mapboxToken, setMapboxToken] = useState<string>(() => {
-    return localStorage.getItem(MAPBOX_TOKEN_KEY) || "";
-  });
-  const [tokenInput, setTokenInput] = useState("");
   const [mapReady, setMapReady] = useState(false);
 
-  const handleSaveToken = () => {
-    if (tokenInput.trim()) {
-      localStorage.setItem(MAPBOX_TOKEN_KEY, tokenInput.trim());
-      setMapboxToken(tokenInput.trim());
-    }
-  };
-
   useEffect(() => {
-    if (!mapContainer.current || !mapboxToken) return;
+    if (!mapContainer.current) return;
 
-    mapboxgl.accessToken = mapboxToken;
+    mapboxgl.accessToken = MAPBOX_TOKEN;
 
     try {
       map.current = new mapboxgl.Map({
@@ -133,8 +120,6 @@ const MapSection = () => {
 
       map.current.on("error", () => {
         setMapReady(false);
-        localStorage.removeItem(MAPBOX_TOKEN_KEY);
-        setMapboxToken("");
       });
     } catch {
       setMapReady(false);
@@ -143,7 +128,7 @@ const MapSection = () => {
     return () => {
       map.current?.remove();
     };
-  }, [mapboxToken]);
+  }, []);
 
   const flyToLocation = (location: typeof locations[0]) => {
     setSelectedLocation(location);
@@ -251,40 +236,7 @@ const MapSection = () => {
             viewport={{ once: true }}
             className="lg:col-span-2 h-[500px] rounded-2xl overflow-hidden glass-card-gold"
           >
-            {!mapboxToken ? (
-              <div className="h-full flex flex-col items-center justify-center p-8 text-center">
-                <MapPin className="w-16 h-16 text-primary/50 mb-6" />
-                <h3 className="text-xl font-serif text-foreground mb-2">
-                  Настройка карты
-                </h3>
-                <p className="text-muted-foreground mb-6 max-w-md">
-                  Для отображения интерактивной карты введите ваш Mapbox публичный токен.
-                  Получить бесплатно на{" "}
-                  <a
-                    href="https://mapbox.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline"
-                  >
-                    mapbox.com
-                  </a>
-                </p>
-                <div className="flex gap-3 w-full max-w-md">
-                  <Input
-                    type="text"
-                    placeholder="pk.eyJ1IjoieW91ci10b2tlbiIuLi4"
-                    value={tokenInput}
-                    onChange={(e) => setTokenInput(e.target.value)}
-                    className="flex-1 bg-background/50"
-                  />
-                  <Button onClick={handleSaveToken} className="glow-button">
-                    Сохранить
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <div ref={mapContainer} className="w-full h-full" />
-            )}
+            <div ref={mapContainer} className="w-full h-full" />
           </motion.div>
         </div>
 
