@@ -26,7 +26,7 @@ const HeroSection = () => {
         <img
           src={heroAnimatedBg}
           alt=""
-          className="w-full h-full object-contain md:object-cover"
+          className="w-full h-full object-contain md:object-cover object-top"
         />
       </div>
 
