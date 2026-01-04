@@ -1,8 +1,25 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const InstagramSection = () => {
+  useEffect(() => {
+    // Load Elfsight script
+    const script = document.createElement("script");
+    script.src = "https://elfsightcdn.com/platform.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      // Cleanup script on unmount
+      const existingScript = document.querySelector('script[src="https://elfsightcdn.com/platform.js"]');
+      if (existingScript) {
+        existingScript.remove();
+      }
+    };
+  }, []);
+
   return (
     <section className="py-20 bg-muted/30" id="instagram">
       <div className="container mx-auto px-4">
@@ -32,52 +49,18 @@ const InstagramSection = () => {
           </a>
         </motion.div>
 
-        {/* Место для вставки виджета Elfsight/SnapWidget */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="bg-card rounded-2xl p-8 border border-border shadow-lg"
+          className="rounded-2xl overflow-hidden"
         >
+          {/* Elfsight Instagram Feed Widget */}
           <div 
-            id="instagram-widget"
-            className="min-h-[400px] flex items-center justify-center"
-          >
-            {/* 
-              Инструкция: Вставьте сюда код виджета от Elfsight или SnapWidget
-              
-              1. Зарегистрируйтесь на https://elfsight.com или https://snapwidget.com
-              2. Создайте Instagram виджет для @magnum.estate
-              3. Скопируйте embed-код и замените этот блок
-              
-              Пример кода Elfsight:
-              <script src="https://static.elfsight.com/platform/platform.js" async></script>
-              <div className="elfsight-app-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" data-elfsight-app-lazy></div>
-            */}
-            <div className="text-center space-y-4">
-              <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
-                {[...Array(6)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="aspect-square bg-muted rounded-lg animate-pulse"
-                  />
-                ))}
-              </div>
-              <p className="text-muted-foreground text-sm">
-                Вставьте embed-код виджета Instagram
-              </p>
-              <Button asChild variant="outline">
-                <a
-                  href="https://elfsight.com/instagram-feed-widget/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Получить виджет Elfsight
-                </a>
-              </Button>
-            </div>
-          </div>
+            className="elfsight-app-fcf832c8-74b1-471b-b57b-b1e36a94e0f7" 
+            data-elfsight-app-lazy
+          />
         </motion.div>
 
         <motion.div
