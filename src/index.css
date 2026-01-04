@@ -16,9 +16,9 @@
     --popover: 0 0% 6%;
     --popover-foreground: 45 25% 92%;
 
-    /* Gold accent as primary */
-    --primary: 42 85% 55%;
-    --primary-foreground: 0 0% 4%;
+  /* Gold accent as primary - #D4AF37 */
+  --primary: 42 85% 55%;
+  --primary-foreground: 0 0% 4%;
 
     /* Platinum secondary */
     --secondary: 0 0% 12%;

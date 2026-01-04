@@ -83,14 +83,14 @@ const MapSection = () => {
           el.style.cssText = `
             width: 32px;
             height: 32px;
-            background: ${location.type === "office" ? "linear-gradient(135deg, #D4AF37, #B8860B)" : "linear-gradient(135deg, #8B7355, #6B5344)"};
+            background: ${location.type === "office" ? "linear-gradient(135deg, hsl(42 85% 55%), hsl(38 75% 45%))" : "linear-gradient(135deg, #8B7355, #6B5344)"};
             border-radius: 50%;
-            border: 2px solid rgba(212, 175, 55, 0.5);
+            border: 2px solid hsl(42 85% 55% / 0.5);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3), 0 0 20px hsl(42 85% 55% / 0.3);
             transition: transform 0.2s ease;
           `;
           el.innerHTML = location.type === "office" 
