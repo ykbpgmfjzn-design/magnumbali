@@ -4,6 +4,7 @@ import ProjectsSection from "@/components/ProjectsSection";
 import AboutSection from "@/components/AboutSection";
 import InvestmentCalculator from "@/components/InvestmentCalculator";
 import InvestmentsSection from "@/components/InvestmentsSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import LeadCaptureForm from "@/components/LeadCaptureForm";
 import Footer from "@/components/Footer";
 import AIChatWidget from "@/components/AIChatWidget";
@@ -17,6 +18,7 @@ const Index = () => {
       <InvestmentCalculator />
       <AboutSection />
       <InvestmentsSection />
+      <TestimonialsSection />
       <LeadCaptureForm />
       <Footer />
       <AIChatWidget />
