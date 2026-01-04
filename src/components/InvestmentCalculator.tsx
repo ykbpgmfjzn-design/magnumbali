@@ -24,31 +24,34 @@ const InvestmentCalculator = () => {
   const [investment, setInvestment] = useState(350000);
   const [period, setPeriod] = useState(3);
   const [rentalROI, setRentalROI] = useState(14); // 14% default rental income
+  const [constructionGrowth, setConstructionGrowth] = useState(25); // 25% default during construction
+  const [postConstructionGrowth, setPostConstructionGrowth] = useState(10); // 10% default after construction
 
   // Calculate returns
   const annualROI = rentalROI / 100; // Convert percentage to decimal
 
   // Property appreciation calculation:
-  // Year 1: +25%
-  // Year 2: +25%
-  // Years 3+: +10% per year (compound)
+  // Years 1-2: construction growth % per year
+  // Years 3+: post-construction growth % per year (compound)
   const calculateAppreciation = (initialValue: number, years: number) => {
     let currentValue = initialValue;
+    const constructionRate = 1 + (constructionGrowth / 100);
+    const postConstructionRate = 1 + (postConstructionGrowth / 100);
 
-    // Year 1: +25%
+    // Year 1: construction growth
     if (years >= 1) {
-      currentValue = currentValue * 1.25;
+      currentValue = currentValue * constructionRate;
     }
 
-    // Year 2: another +25%
+    // Year 2: construction growth
     if (years >= 2) {
-      currentValue = currentValue * 1.25;
+      currentValue = currentValue * constructionRate;
     }
 
-    // Years 3+: +10% compound growth each year
+    // Years 3+: post-construction compound growth each year
     if (years > 2) {
       const additionalYears = years - 2;
-      currentValue = currentValue * Math.pow(1.1, additionalYears);
+      currentValue = currentValue * Math.pow(postConstructionRate, additionalYears);
     }
 
     return currentValue - initialValue; // Total appreciation
@@ -60,6 +63,9 @@ const InvestmentCalculator = () => {
   const propertyGrowth = calculateAppreciation(investment, period);
   const totalReturn = rentalIncome + propertyGrowth;
   const totalValue = investment + totalReturn;
+
+  // Average ROI per year
+  const averageROIPerYear = period > 0 ? (totalReturn / investment / period) * 100 : 0;
 
   const investmentOptions = [
     { value: 200000, label: "$200K" },
@@ -166,6 +172,49 @@ const InvestmentCalculator = () => {
                     <span>6%</span>
                     <span>15%</span>
                   </div>
+                  <p className="text-xs text-muted-foreground/70 mt-2 italic">
+                    * Доход начинается с ввода проекта в эксплуатацию (с 3-го года)
+                  </p>
+                </div>
+
+                {/* Construction Growth */}
+                <div>
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-2">
+                    <label className="text-base sm:text-lg font-medium text-foreground">Рост стоимости (период стройки)</label>
+                    <span className="text-xl sm:text-2xl font-bold text-gradient-gold">{constructionGrowth}%</span>
+                  </div>
+                  <Slider
+                    value={[constructionGrowth]}
+                    onValueChange={(value) => setConstructionGrowth(value[0])}
+                    min={10}
+                    max={30}
+                    step={1}
+                    className="w-full"
+                  />
+                  <div className="flex justify-between text-sm text-muted-foreground mt-3">
+                    <span>10%</span>
+                    <span>30%</span>
+                  </div>
+                </div>
+
+                {/* Post-Construction Growth */}
+                <div>
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-2">
+                    <label className="text-base sm:text-lg font-medium text-foreground">Рост стоимости (после ввода)</label>
+                    <span className="text-xl sm:text-2xl font-bold text-gradient-gold">{postConstructionGrowth}%</span>
+                  </div>
+                  <Slider
+                    value={[postConstructionGrowth]}
+                    onValueChange={(value) => setPostConstructionGrowth(value[0])}
+                    min={5}
+                    max={15}
+                    step={1}
+                    className="w-full"
+                  />
+                  <div className="flex justify-between text-sm text-muted-foreground mt-3">
+                    <span>5%</span>
+                    <span>15%</span>
+                  </div>
                 </div>
 
                 {/* Quick Select Buttons */}
@@ -229,12 +278,35 @@ const InvestmentCalculator = () => {
                       <div className="min-w-0 flex-1">
                         <p className="text-xs sm:text-sm text-muted-foreground">Рост стоимости</p>
                         <p className="text-xs text-muted-foreground/60">
-                          {period === 1 ? '+25% в 1-й год' : period === 2 ? '+25% в 1-й и 2-й год' : '+25%+25% + 10%/год'}
+                          {constructionGrowth}% в год (период стройки), {postConstructionGrowth}% в год
                         </p>
                       </div>
                     </div>
                     <div className="text-lg sm:text-xl md:text-2xl font-bold text-foreground text-right sm:text-left">
                       <AnimatedNumber value={propertyGrowth} prefix="+$" />
+                    </div>
+                  </motion.div>
+
+                  {/* Average ROI per Year */}
+                  <motion.div
+                    className="flex items-center justify-between bg-primary/5 rounded-xl p-3 sm:p-4"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+                    transition={{ delay: 0.55 }}
+                  >
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
+                        <Calculator className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-xs sm:text-sm text-muted-foreground font-semibold">Средний ROI за год</p>
+                        <p className="text-xs text-muted-foreground/60">
+                          За {period} {period === 1 ? 'год' : 'года'}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary text-right sm:text-left">
+                      <AnimatedNumber value={averageROIPerYear} suffix="%" />
                     </div>
                   </motion.div>
 
@@ -251,7 +323,7 @@ const InvestmentCalculator = () => {
                           <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                         </div>
                         <div>
-                          <p className="text-xs sm:text-sm text-muted-foreground">Общая прибыль</p>
+                          <p className="text-xs sm:text-sm text-muted-foreground">Общая прибыль (после продажи актива)</p>
                           <p className="text-xs text-muted-foreground/60">через {period} года</p>
                         </div>
                       </div>
@@ -269,7 +341,7 @@ const InvestmentCalculator = () => {
                   animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
                   transition={{ delay: 0.7 }}
                 >
-                  <p className="text-xs sm:text-sm text-muted-foreground mb-2">Итоговая стоимость актива</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-2">Итоговая стоимость актива и доход от аренды</p>
                   <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-gradient-gold mb-3 sm:mb-4">
                     <AnimatedNumber value={totalValue} prefix="$" />
                   </div>
