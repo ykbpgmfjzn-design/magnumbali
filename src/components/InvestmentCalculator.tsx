@@ -20,12 +20,19 @@ const AnimatedNumber = ({ value, prefix = "", suffix = "" }: { value: number; pr
 const InvestmentCalculator = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  
+
   const [investment, setInvestment] = useState(350000);
   const [period, setPeriod] = useState(3);
   const [rentalROI, setRentalROI] = useState(14); // 14% default rental income
   const [constructionGrowth, setConstructionGrowth] = useState(25); // 25% default during construction
   const [postConstructionGrowth, setPostConstructionGrowth] = useState(10); // 10% default after construction
+
+  // Helper function for correct Russian declension of "year"
+  const getYearWord = (num: number): string => {
+    const cases = [2, 0, 1, 1, 1, 2];
+    const words = ['год', 'года', 'лет'];
+    return words[(num % 100 > 4 && num % 100 < 20) ? 2 : cases[Math.min(num % 10, 5)]];
+  };
 
   // Calculate returns
   const annualROI = rentalROI / 100; // Convert percentage to decimal
@@ -138,7 +145,7 @@ const InvestmentCalculator = () => {
                 <div>
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-2">
                     <label className="text-base sm:text-lg font-medium text-foreground">Срок инвестирования</label>
-                    <span className="text-xl sm:text-2xl font-bold text-gradient-gold">{period} года</span>
+                    <span className="text-xl sm:text-2xl font-bold text-gradient-gold">{period} {getYearWord(period)}</span>
                   </div>
                   <Slider
                     value={[period]}
@@ -255,7 +262,7 @@ const InvestmentCalculator = () => {
                       <div className="min-w-0 flex-1">
                         <p className="text-xs sm:text-sm text-muted-foreground">Доход от аренды</p>
                         <p className="text-xs text-muted-foreground/60">
-                          {period <= 2 ? `${rentalROI}% годовых с 3-го года` : `${rentalROI}% за ${rentalYears} ${rentalYears === 1 ? 'год' : 'года'}`}
+                          {period <= 2 ? `${rentalROI}% годовых с 3-го года` : `${rentalROI}% за ${rentalYears} ${getYearWord(rentalYears)}`}
                         </p>
                       </div>
                     </div>
@@ -301,7 +308,7 @@ const InvestmentCalculator = () => {
                       <div className="min-w-0 flex-1">
                         <p className="text-xs sm:text-sm text-muted-foreground font-semibold">Средний ROI за год</p>
                         <p className="text-xs text-muted-foreground/60">
-                          За {period} {period === 1 ? 'год' : 'года'}
+                          За {period} {getYearWord(period)}
                         </p>
                       </div>
                     </div>
@@ -324,7 +331,7 @@ const InvestmentCalculator = () => {
                         </div>
                         <div>
                           <p className="text-xs sm:text-sm text-muted-foreground">Общая прибыль (после продажи актива)</p>
-                          <p className="text-xs text-muted-foreground/60">через {period} года</p>
+                          <p className="text-xs text-muted-foreground/60">через {period} {getYearWord(period)}</p>
                         </div>
                       </div>
                       <div className="text-2xl sm:text-3xl font-bold text-gradient-gold text-right sm:text-left w-full sm:w-auto">
