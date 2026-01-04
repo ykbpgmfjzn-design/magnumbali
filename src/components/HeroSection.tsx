@@ -49,8 +49,10 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background z-10" />
 
       {/* Content */}
-      <motion.div style={{ opacity }} className="container mx-auto px-4 sm:px-6 relative z-20 pt-24 sm:pt-28 md:pt-32 pb-20">
-        <motion.div
+      <div className="container mx-auto px-4 sm:px-6 relative z-20 pt-24 sm:pt-28 md:pt-32 pb-20">
+        {/* Animated Content - only title, text, buttons fade on scroll */}
+        <motion.div 
+          style={{ opacity }} 
           className="text-center max-w-5xl mx-auto"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -68,14 +70,14 @@ const HeroSection = () => {
           </motion.div>
 
           {/* Main Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-bold leading-tight mb-4 sm:mb-6 px-2">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-bold leading-[1.2] sm:leading-[1.3] md:leading-[1.25] mb-4 sm:mb-6 px-2">
             <span className="text-foreground">Magnum Estate:</span>
             <br />
             <span className="text-gradient-gold">Инвестиции в будущее Бали</span>
           </h1>
 
           <motion.p
-            className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 sm:mb-12 px-4"
+            className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 sm:mb-12 px-4 leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
@@ -97,34 +99,34 @@ const HeroSection = () => {
               Рассчитать доходность
             </Button>
           </motion.div>
+        </motion.div>
 
-          {/* Stats Card - Glassmorphism */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1 }}
-            className="glass-card-gold p-6 sm:p-8 max-w-3xl mx-auto"
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.2 + index * 0.15 }}
-                  className="flex flex-col items-center text-center group"
-                >
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-primary/20 transition-colors group-hover:animate-pulse-glow">
-                    <stat.icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
-                  </div>
-                  <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gradient-gold mb-1">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs sm:text-sm text-muted-foreground px-2">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+        {/* Stats Card - Always visible, separate from fade effect */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1 }}
+          className="glass-card-gold p-6 sm:p-8 max-w-3xl mx-auto mt-8 sm:mt-12"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2 + index * 0.15 }}
+                className="flex flex-col items-center text-center group"
+              >
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-primary/20 transition-colors group-hover:animate-pulse-glow">
+                  <stat.icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
+                </div>
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gradient-gold mb-1">
+                  {stat.value}
+                </div>
+                <div className="text-xs sm:text-sm text-muted-foreground px-2">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Scroll Indicator */}
