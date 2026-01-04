@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowDown, TrendingUp, Building2, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-villa.jpg";
+import heroAnimatedBg from "@/assets/hero-animated-bg.webp";
 
 const HeroSection = () => {
   const ref = useRef(null);
@@ -11,7 +11,6 @@ const HeroSection = () => {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   const stats = [
@@ -22,13 +21,12 @@ const HeroSection = () => {
 
   return (
     <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video/Image Container - Ready for WebP video */}
-      <div className="video-container">
-        <motion.img
-          src={heroImage}
-          alt="Luxury Villa in Bali"
-          className="w-full h-full object-cover"
-          style={{ y }}
+      {/* Animated WebP Background */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={heroAnimatedBg}
+          alt=""
+          className="w-full h-full object-cover scale-110"
         />
       </div>
 
