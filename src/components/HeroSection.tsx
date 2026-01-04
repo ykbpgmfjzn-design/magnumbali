@@ -140,7 +140,7 @@ const HeroSection = () => {
             <ArrowDown className="w-5 h-5 text-primary" />
           </div>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 };
