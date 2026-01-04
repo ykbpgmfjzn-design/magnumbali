@@ -6,6 +6,7 @@ import InvestmentCalculator from "@/components/InvestmentCalculator";
 import InvestmentsSection from "@/components/InvestmentsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FAQSection from "@/components/FAQSection";
+import InstagramSection from "@/components/InstagramSection";
 import MapSection from "@/components/MapSection";
 import LeadCaptureForm from "@/components/LeadCaptureForm";
 import Footer from "@/components/Footer";
@@ -22,6 +23,7 @@ const Index = () => {
       <InvestmentsSection />
       <TestimonialsSection />
       <FAQSection />
+      <InstagramSection />
       <MapSection />
       <LeadCaptureForm />
       <Footer />
