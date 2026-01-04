@@ -13,7 +13,7 @@ import AIChatWidget from "@/components/AIChatWidget";
 
 const Index = () => {
   return (
-    <main className="min-h-screen bg-background overflow-x-hidden">
+    <main className="min-h-screen bg-background overflow-x-hidden w-full">
       <Header />
       <HeroSection />
       <ProjectsSection />

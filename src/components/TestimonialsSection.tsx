@@ -87,29 +87,29 @@ const TestimonialsSection = () => {
   }, [emblaApi]);
 
   return (
-    <section ref={ref} className="py-24 relative overflow-hidden">
+    <section ref={ref} className="py-12 sm:py-16 md:py-24 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/3 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <span className="text-primary text-sm font-medium uppercase tracking-widest mb-4 block">
+          <span className="text-primary text-xs sm:text-sm font-medium uppercase tracking-widest mb-3 sm:mb-4 block">
             Отзывы
           </span>
-          <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-serif font-bold mb-4 sm:mb-6 px-4">
             <span className="text-foreground">Что говорят </span>
             <span className="text-gradient-gold">наши клиенты</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Более 500 успешных инвесторов уже доверили нам свои вложения
           </p>
         </motion.div>
@@ -126,50 +126,50 @@ const TestimonialsSection = () => {
               {testimonials.map((testimonial, index) => (
                 <div
                   key={testimonial.id}
-                  className="flex-[0_0_100%] min-w-0 md:flex-[0_0_50%] lg:flex-[0_0_33.333%] px-4"
+                  className="flex-[0_0_100%] min-w-0 md:flex-[0_0_50%] lg:flex-[0_0_33.333%] px-2 sm:px-4"
                 >
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={isInView ? { opacity: 1, scale: 1 } : {}}
                     transition={{ duration: 0.5, delay: 0.1 * index }}
-                    className={`glass-card p-8 h-full transition-all duration-500 ${
+                    className={`glass-card p-5 sm:p-6 md:p-8 h-full transition-all duration-500 ${
                       selectedIndex === index 
                         ? "border-primary/30 shadow-[0_0_30px_rgba(212,175,55,0.15)]" 
                         : ""
                     }`}
                   >
                     {/* Quote Icon */}
-                    <div className="mb-6">
-                      <Quote className="w-10 h-10 text-primary/40" />
+                    <div className="mb-4 sm:mb-6">
+                      <Quote className="w-8 h-8 sm:w-10 sm:h-10 text-primary/40" />
                     </div>
 
                     {/* Rating */}
-                    <div className="flex gap-1 mb-4">
+                    <div className="flex gap-1 mb-3 sm:mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <Star
                           key={i}
-                          className="w-5 h-5 fill-primary text-primary"
+                          className="w-4 h-4 sm:w-5 sm:h-5 fill-primary text-primary"
                         />
                       ))}
                     </div>
 
                     {/* Text */}
-                    <p className="text-foreground/90 mb-8 leading-relaxed">
+                    <p className="text-sm sm:text-base text-foreground/90 mb-6 sm:mb-8 leading-relaxed">
                       "{testimonial.text}"
                     </p>
 
                     {/* Author */}
-                    <div className="flex items-center gap-4 mt-auto">
+                    <div className="flex items-center gap-3 sm:gap-4 mt-auto">
                       <img
                         src={testimonial.image}
                         alt={testimonial.name}
-                        className="w-14 h-14 rounded-full object-cover border-2 border-primary/30"
+                        className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-primary/30 flex-shrink-0"
                       />
-                      <div>
-                        <div className="font-semibold text-foreground">
+                      <div className="min-w-0">
+                        <div className="text-sm sm:text-base font-semibold text-foreground truncate">
                           {testimonial.name}
                         </div>
-                        <div className="text-sm text-muted-foreground">
+                        <div className="text-xs sm:text-sm text-muted-foreground truncate">
                           {testimonial.role}
                         </div>
                       </div>
@@ -181,14 +181,14 @@ const TestimonialsSection = () => {
           </div>
 
           {/* Navigation Buttons */}
-          <div className="flex justify-center items-center gap-4 mt-10">
+          <div className="flex justify-center items-center gap-3 sm:gap-4 mt-6 sm:mt-10">
             <Button
               variant="glass"
               size="icon"
               onClick={scrollPrev}
-              className="rounded-full w-12 h-12"
+              className="rounded-full w-10 h-10 sm:w-12 sm:h-12 touch-manipulation"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
             </Button>
 
             {/* Dots */}
@@ -197,9 +197,9 @@ const TestimonialsSection = () => {
                 <button
                   key={index}
                   onClick={() => emblaApi?.scrollTo(index)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  className={`w-2 h-2 rounded-full transition-all duration-300 touch-manipulation ${
                     selectedIndex === index
-                      ? "w-8 bg-primary"
+                      ? "w-6 sm:w-8 bg-primary"
                       : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
                   }`}
                 />
@@ -210,9 +210,9 @@ const TestimonialsSection = () => {
               variant="glass"
               size="icon"
               onClick={scrollNext}
-              className="rounded-full w-12 h-12"
+              className="rounded-full w-10 h-10 sm:w-12 sm:h-12 touch-manipulation"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </Button>
           </div>
         </motion.div>

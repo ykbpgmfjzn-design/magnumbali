@@ -75,6 +75,13 @@
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', sans-serif;
     background-color: #0a0a0a;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Touch-friendly elements */
+  button, a, [role="button"] {
+    touch-action: manipulation;
   }
 
   h1, h2, h3, h4, h5, h6 {
