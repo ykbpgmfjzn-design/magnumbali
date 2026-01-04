@@ -10,47 +10,48 @@ const locations = [
   {
     id: 1,
     type: "office",
-    name: "Головной офис — Москва",
-    address: "Пресненская набережная, 12, Башня Федерация",
-    phone: "+7 (495) 123-45-67",
-    email: "moscow@magnumestate.ru",
-    coordinates: [37.5377, 55.7496] as [number, number],
+    name: "Головной офис — Бали",
+    address: "Jl. Bumbak No.156, Kerobokan, Kec. Kuta Utara, Kabupaten Badung, Bali 80361",
+    phone: "+62 812 3456 7890",
+    email: "bali@magnumestate.ru",
+    coordinates: [115.152742, -8.661754] as [number, number],
   },
   {
     id: 2,
     type: "office",
-    name: "Офис в Дубае",
-    address: "Dubai Marina, Jumeirah Beach Residence",
-    phone: "+971 4 123 4567",
-    email: "dubai@magnumestate.ru",
-    coordinates: [55.1425, 25.0764] as [number, number],
+    name: "Офис продаж - Berawa",
+    address: "Jl. Pantai Berawa, Tibubeneng, Kec. Kuta Utara, Kabupaten Badung, Bali",
+    phone: "+62 812 3456 7891",
+    email: "berawa@magnumestate.ru",
+    coordinates: [115.136473, -8.661505] as [number, number],
   },
   {
     id: 3,
     type: "property",
-    name: "Villa Azure — Кипр",
-    address: "Лимассол, Amathus Avenue",
-    coordinates: [33.1451, 34.7071] as [number, number],
+    name: "The Umalas Signature - Bali",
+    address: "Jl. Bumbak No.156, Kerobokan, Kec. Kuta Utara, Kabupaten Badung, Bali 80361",
+    coordinates: [115.152742, -8.661754] as [number, number],
   },
   {
     id: 4,
     type: "property",
-    name: "Penthouse Monaco",
-    address: "Monte Carlo, Avenue Princess Grace",
-    coordinates: [7.4246, 43.7384] as [number, number],
+    name: "Magnum Resort Sanur",
+    address: "Jl. Danau Tamblingan, Sanur, Denpasar Selatan, Kota Denpasar, Bali",
+    coordinates: [115.2626, -8.6918] as [number, number],
   },
   {
     id: 5,
     type: "property",
-    name: "Estate Marbella",
-    address: "Golden Mile, Marbella",
-    coordinates: [-4.8857, 36.5087] as [number, number],
+    name: "Sky Stars Villas",
+    address: "Jl. Taman Paradise Banjar Bakung Sari, Ungasan",
+    coordinates: [115.144978, -8.816650] as [number, number],
   },
 ];
 
 const MapSection = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
+  const markers = useRef<mapboxgl.Marker[]>([]);
   const [selectedLocation, setSelectedLocation] = useState(locations[0]);
   const [mapReady, setMapReady] = useState(false);
 
@@ -63,8 +64,8 @@ const MapSection = () => {
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
         style: "mapbox://styles/mapbox/dark-v11",
-        center: [30, 40],
-        zoom: 2.5,
+        center: [115.152742, -8.661754],
+        zoom: 9,
         pitch: 30,
       });
 
@@ -76,6 +77,9 @@ const MapSection = () => {
       map.current.on("load", () => {
         setMapReady(true);
 
+        // Calculate bounds to show all locations
+        const bounds = new mapboxgl.LngLatBounds();
+        
         // Add markers for each location
         locations.forEach((location) => {
           const el = document.createElement("div");
@@ -107,15 +111,29 @@ const MapSection = () => {
             setSelectedLocation(location);
             map.current?.flyTo({
               center: location.coordinates,
-              zoom: 10,
+              zoom: 12,
               duration: 2000,
             });
           });
 
-          new mapboxgl.Marker(el)
+          const marker = new mapboxgl.Marker(el)
             .setLngLat(location.coordinates)
             .addTo(map.current!);
+          
+          markers.current.push(marker);
+          
+          // Extend bounds to include this location
+          bounds.extend(location.coordinates);
         });
+
+        // Fit map to show all markers with padding
+        if (bounds.isEmpty() === false) {
+          map.current.fitBounds(bounds, {
+            padding: { top: 50, bottom: 50, left: 50, right: 50 },
+            maxZoom: 11,
+            duration: 0,
+          });
+        }
       });
 
       map.current.on("error", () => {
@@ -126,6 +144,9 @@ const MapSection = () => {
     }
 
     return () => {
+      // Remove all markers
+      markers.current.forEach(marker => marker.remove());
+      markers.current = [];
       map.current?.remove();
     };
   }, []);
