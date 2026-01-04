@@ -12,10 +12,12 @@ import MapSection from "@/components/MapSection";
 import LeadCaptureForm from "@/components/LeadCaptureForm";
 import Footer from "@/components/Footer";
 import AIChatWidget from "@/components/AIChatWidget";
+import DynamicBackground from "@/components/DynamicBackground";
 
 const Index = () => {
   return (
     <main className="min-h-screen bg-background overflow-x-hidden w-full">
+      <DynamicBackground />
       <Header />
       <HeroSection />
       <StatsSection />
