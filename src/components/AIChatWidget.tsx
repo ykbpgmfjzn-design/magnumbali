@@ -170,7 +170,7 @@ const AIChatWidget = () => {
         animate={{ scale: 1 }}
         transition={{ delay: 1.5, type: "spring" }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 ${
+        className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 touch-manipulation ${
           isOpen ? "hidden" : "block"
         }`}
         style={{
@@ -191,35 +191,36 @@ const AIChatWidget = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.8 }}
             transition={{ type: "spring", damping: 25 }}
-            className="fixed bottom-6 right-6 z-50 w-[400px] max-w-[calc(100vw-2rem)] h-[550px] glass-card-gold flex flex-col overflow-hidden"
+            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[400px] max-w-[calc(100vw-2rem)] h-[calc(100vh-8rem)] sm:h-[550px] max-h-[600px] glass-card-gold flex flex-col overflow-hidden rounded-xl sm:rounded-2xl"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-border/30 bg-gradient-to-r from-primary/10 to-transparent">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg">
-                  <Bot className="w-6 h-6 text-primary-foreground" />
+            <div className="flex items-center justify-between p-3 sm:p-4 border-b border-border/30 bg-gradient-to-r from-primary/10 to-transparent">
+              <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg flex-shrink-0">
+                  <Bot className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
                 </div>
-                <div>
-                  <h4 className="font-serif font-bold text-foreground flex items-center gap-2">
+                <div className="min-w-0 flex-1">
+                  <h4 className="text-sm sm:text-base font-serif font-bold text-foreground flex items-center gap-1 sm:gap-2">
                     AI Консьерж
-                    <Sparkles className="w-4 h-4 text-primary" />
+                    <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0" />
                   </h4>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse flex-shrink-0" />
                     <span className="text-xs text-muted-foreground">Онлайн</span>
                   </div>
                 </div>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-9 h-9 rounded-xl glass flex items-center justify-center hover:bg-muted/50 transition-colors"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl glass flex items-center justify-center hover:bg-muted/50 transition-colors touch-manipulation flex-shrink-0"
+                aria-label="Close chat"
               >
-                <X className="w-5 h-5 text-foreground" />
+                <X className="w-4 h-4 sm:w-5 sm:h-5 text-foreground" />
               </button>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4">
               {messages.map((message) => (
                 <motion.div
                   key={message.id}
@@ -228,17 +229,17 @@ const AIChatWidget = () => {
                   className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[85%] px-4 py-3 ${
+                    className={`max-w-[85%] px-3 sm:px-4 py-2 sm:py-3 ${
                       message.sender === "user"
                         ? "chat-bubble-outgoing"
                         : "chat-bubble-incoming"
                     }`}
                   >
-                    <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.text}</p>
-                    <div className={`flex items-center gap-1.5 mt-2 ${
+                    <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap break-words">{message.text}</p>
+                    <div className={`flex items-center gap-1.5 mt-1.5 sm:mt-2 ${
                       message.sender === "user" ? "justify-end" : ""
                     }`}>
-                      <span className="text-xs opacity-60">{message.time}</span>
+                      <span className="text-[10px] sm:text-xs opacity-60">{message.time}</span>
                       {message.sender === "user" && <StatusIcon status={message.status} />}
                     </div>
                   </div>
@@ -264,14 +265,14 @@ const AIChatWidget = () => {
             </div>
 
             {/* Input */}
-            <div className="p-4 border-t border-border/30 bg-gradient-to-r from-transparent to-primary/5">
+            <div className="p-3 sm:p-4 border-t border-border/30 bg-gradient-to-r from-transparent to-primary/5">
               <div className="flex gap-2">
                 <Input
                   placeholder="Напишите сообщение..."
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={(e) => e.key === "Enter" && !e.shiftKey && handleSendMessage()}
-                  className="flex-1"
+                  className="flex-1 text-sm sm:text-base h-10 sm:h-12"
                   disabled={isLoading}
                 />
                 <Button
@@ -279,12 +280,12 @@ const AIChatWidget = () => {
                   size="icon"
                   onClick={handleSendMessage}
                   disabled={!inputValue.trim() || isLoading}
-                  className="w-12 h-12"
+                  className="w-10 h-10 sm:w-12 sm:h-12 touch-manipulation"
                 >
-                  <Send className="w-5 h-5" />
+                  <Send className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
               </div>
-              <p className="text-xs text-center text-muted-foreground mt-3">
+              <p className="text-[10px] sm:text-xs text-center text-muted-foreground mt-2 sm:mt-3">
                 Powered by AI · Magnum Estate
               </p>
             </div>

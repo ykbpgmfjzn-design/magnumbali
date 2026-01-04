@@ -83,14 +83,14 @@ const MapSection = () => {
           el.style.cssText = `
             width: 32px;
             height: 32px;
-            background: ${location.type === "office" ? "linear-gradient(135deg, #D4AF37, #B8860B)" : "linear-gradient(135deg, #8B7355, #6B5344)"};
+            background: ${location.type === "office" ? "linear-gradient(135deg, hsl(42 85% 55%), hsl(38 75% 45%))" : "linear-gradient(135deg, #8B7355, #6B5344)"};
             border-radius: 50%;
-            border: 2px solid rgba(212, 175, 55, 0.5);
+            border: 2px solid hsl(42 85% 55% / 0.5);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3), 0 0 20px hsl(42 85% 55% / 0.3);
             transition: transform 0.2s ease;
           `;
           el.innerHTML = location.type === "office" 
@@ -140,7 +140,7 @@ const MapSection = () => {
   };
 
   return (
-    <section className="py-24 px-4 relative overflow-hidden" id="locations">
+    <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 relative overflow-hidden" id="locations">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
       
       <div className="container mx-auto relative z-10">
@@ -151,28 +151,28 @@ const MapSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="text-primary/80 uppercase tracking-[0.3em] text-sm font-medium">
+          <span className="text-primary/80 uppercase tracking-[0.3em] text-xs sm:text-sm font-medium">
             Наше присутствие
           </span>
-          <h2 className="text-4xl md:text-5xl font-serif mt-4 mb-6 text-gradient-gold">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold leading-[1.25] sm:leading-[1.3] mt-3 sm:mt-4 mb-4 sm:mb-6 text-gradient-gold px-4">
             Офисы и объекты
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Мы работаем в ключевых локациях мировой элитной недвижимости
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Location list */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="space-y-4"
+            className="space-y-3 sm:space-y-4"
           >
-            <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-              <Building2 className="w-5 h-5 text-primary" />
+            <h3 className="text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4 flex items-center gap-2">
+              <Building2 className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               Офисы
             </h3>
             {locations
@@ -181,16 +181,16 @@ const MapSection = () => {
                 <button
                   key={location.id}
                   onClick={() => flyToLocation(location)}
-                  className={`w-full text-left p-4 rounded-xl transition-all duration-300 ${
+                  className={`w-full text-left p-3 sm:p-4 rounded-xl transition-all duration-300 touch-manipulation ${
                     selectedLocation.id === location.id
                       ? "glass-card-gold border-primary/30"
                       : "glass hover:border-primary/20"
                   }`}
                 >
-                  <h4 className="font-medium text-foreground mb-1">
+                  <h4 className="text-sm sm:text-base font-medium text-foreground mb-1">
                     {location.name}
                   </h4>
-                  <p className="text-sm text-muted-foreground mb-2">
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-2">
                     {location.address}
                   </p>
                   {location.phone && (
@@ -202,8 +202,8 @@ const MapSection = () => {
                 </button>
               ))}
 
-            <h3 className="text-lg font-semibold text-foreground mt-8 mb-4 flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-primary" />
+            <h3 className="text-base sm:text-lg font-semibold text-foreground mt-6 sm:mt-8 mb-3 sm:mb-4 flex items-center gap-2">
+              <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               Премиальные объекты
             </h3>
             {locations
@@ -234,7 +234,7 @@ const MapSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="lg:col-span-2 h-[500px] rounded-2xl overflow-hidden glass-card-gold"
+            className="lg:col-span-2 h-[300px] sm:h-[400px] md:h-[500px] rounded-2xl overflow-hidden glass-card-gold"
           >
             <div ref={mapContainer} className="w-full h-full" />
           </motion.div>
@@ -247,30 +247,30 @@ const MapSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mt-8 glass-card-gold p-6 rounded-xl max-w-2xl mx-auto"
+            className="mt-6 sm:mt-8 glass-card-gold p-4 sm:p-6 rounded-xl max-w-2xl mx-auto"
           >
-            <h3 className="text-xl font-serif text-foreground mb-2">
+            <h3 className="text-lg sm:text-xl font-serif font-bold leading-[1.3] text-foreground mb-2">
               {selectedLocation.name}
             </h3>
-            <p className="text-muted-foreground mb-4">
+            <p className="text-sm sm:text-base text-muted-foreground mb-3 sm:mb-4">
               {selectedLocation.address}
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-3 sm:gap-4">
               {selectedLocation.phone && (
                 <a
                   href={`tel:${selectedLocation.phone}`}
-                  className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
+                  className="flex items-center gap-2 text-xs sm:text-sm text-primary hover:text-primary/80 transition-colors touch-manipulation"
                 >
-                  <Phone className="w-4 h-4" />
+                  <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   {selectedLocation.phone}
                 </a>
               )}
               {selectedLocation.email && (
                 <a
                   href={`mailto:${selectedLocation.email}`}
-                  className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
+                  className="flex items-center gap-2 text-xs sm:text-sm text-primary hover:text-primary/80 transition-colors touch-manipulation"
                 >
-                  <Mail className="w-4 h-4" />
+                  <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   {selectedLocation.email}
                 </a>
               )}

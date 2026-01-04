@@ -101,34 +101,34 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
         </motion.div>
       </div>
 
-      <div className="p-6">
-        <div className="flex items-center gap-2 text-muted-foreground text-sm mb-2">
-          <MapPin className="w-4 h-4" />
+      <div className="p-4 sm:p-6">
+        <div className="flex items-center gap-2 text-muted-foreground text-xs sm:text-sm mb-2">
+          <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           {project.location}
         </div>
 
-        <h3 className="text-2xl font-serif font-bold text-foreground mb-4 group-hover:text-gradient-gold transition-all duration-300">
+        <h3 className="text-xl sm:text-2xl font-serif font-bold leading-[1.3] text-foreground mb-3 sm:mb-4 group-hover:text-gradient-gold transition-all duration-300">
           {project.name}
         </h3>
 
-        <div className="flex items-center gap-4 text-muted-foreground text-sm mb-6">
+        <div className="flex items-center gap-3 sm:gap-4 text-muted-foreground text-xs sm:text-sm mb-4 sm:mb-6 flex-wrap">
           <div className="flex items-center gap-1.5">
-            <Bed className="w-4 h-4" />
+            <Bed className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>{project.bedrooms}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <Bath className="w-4 h-4" />
+            <Bath className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>{project.bathrooms}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <Maximize className="w-4 h-4" />
+            <Maximize className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>{project.area} м²</span>
           </div>
         </div>
 
-        <div className="flex items-center justify-between pt-4 border-t border-border/30">
-          <span className="text-2xl font-bold text-gradient-gold">{project.price}</span>
-          <Button variant="outline" size="sm">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pt-4 border-t border-border/30 gap-3 sm:gap-0">
+          <span className="text-xl sm:text-2xl font-bold text-gradient-gold">{project.price}</span>
+          <Button variant="outline" size="sm" className="w-full sm:w-auto touch-manipulation">
             Подробнее
           </Button>
         </div>
@@ -142,7 +142,7 @@ const ProjectsSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="projects" className="py-24 relative overflow-hidden">
+    <section id="projects" className="py-12 sm:py-16 md:py-24 relative overflow-hidden">
       {/* Parallax Background Element */}
       <motion.div
         className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-30 parallax-slow"
@@ -151,26 +151,26 @@ const ProjectsSection = () => {
         }}
       />
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <span className="text-primary text-sm font-medium tracking-wider uppercase">
+          <span className="text-primary text-xs sm:text-sm font-medium tracking-wider uppercase">
             Наши проекты
           </span>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold mt-4 mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold leading-[1.25] sm:leading-[1.3] mt-3 sm:mt-4 mb-4 sm:mb-6 px-4">
             Откройте мир <span className="text-gradient-gold">премиальной</span> недвижимости
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-4">
             Коллекция эксклюзивных объектов в самых престижных локациях острова
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
@@ -180,9 +180,9 @@ const ProjectsSection = () => {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ delay: 0.8 }}
-          className="text-center mt-12"
+          className="text-center mt-8 sm:mt-12"
         >
-          <Button variant="glass" size="lg">
+          <Button variant="glass" size="lg" className="w-full sm:w-auto touch-manipulation">
             Все проекты
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>

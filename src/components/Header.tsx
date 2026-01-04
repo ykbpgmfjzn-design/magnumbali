@@ -29,14 +29,15 @@ const Header = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? "glass py-3" : "py-5"
+        isScrolled ? "glass py-2 sm:py-3" : "py-3 sm:py-5"
       }`}
     >
-      <div className="container mx-auto px-4 flex items-center justify-between">
+      <div className="container mx-auto px-3 sm:px-4 flex items-center justify-between">
         <motion.a
           href="#"
           className="flex items-center"
           whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
         >
           <div className="relative">
             {/* Glow effect behind logo */}
@@ -45,7 +46,7 @@ const Header = () => {
             <img
               src={logo}
               alt="Magnum Estate"
-              className="h-10 sm:h-12 w-auto relative z-10 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] brightness-110 contrast-110"
+              className="h-8 sm:h-10 md:h-12 w-auto relative z-10 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] brightness-110 contrast-110"
             />
           </div>
         </motion.a>
@@ -73,15 +74,16 @@ const Header = () => {
           transition={{ delay: 0.6 }}
           className="hidden lg:block"
         >
-          <Button variant="glow" size="lg">
+          <Button variant="glow" size="lg" className="text-sm md:text-base">
             Получить консультацию
           </Button>
         </motion.div>
 
         {/* Mobile Menu Button */}
         <button
-          className="lg:hidden text-foreground p-2"
+          className="lg:hidden text-foreground p-2 -mr-1 touch-manipulation"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -113,20 +115,20 @@ const AnimatedMobileMenu = ({
       initial={{ opacity: 0, height: 0 }}
       animate={{ opacity: 1, height: "auto" }}
       exit={{ opacity: 0, height: 0 }}
-      className="lg:hidden glass-card mt-4 mx-4 p-6"
+      className="lg:hidden glass-card mt-2 mx-3 sm:mx-4 p-4 sm:p-6 rounded-xl"
     >
-      <nav className="flex flex-col gap-4">
+      <nav className="flex flex-col gap-3 sm:gap-4">
         {navLinks.map((link) => (
           <a
             key={link.name}
             href={link.href}
-            className="text-foreground/80 hover:text-primary transition-colors py-2 border-b border-border/30 last:border-0"
+            className="text-base sm:text-lg text-foreground/80 hover:text-primary transition-colors py-3 sm:py-4 border-b border-border/30 last:border-0 touch-manipulation"
             onClick={onClose}
           >
             {link.name}
           </a>
         ))}
-        <Button variant="glow" className="mt-4">
+        <Button variant="glow" className="mt-2 sm:mt-4 w-full py-6 text-base font-semibold touch-manipulation">
           Получить консультацию
         </Button>
       </nav>

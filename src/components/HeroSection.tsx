@@ -20,7 +20,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 sm:pt-0">
       {/* Animated WebP Background */}
       <div className="absolute inset-0 z-0">
         <img
@@ -49,8 +49,10 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background z-10" />
 
       {/* Content */}
-      <motion.div style={{ opacity }} className="container mx-auto px-4 relative z-20 pt-20">
-        <motion.div
+      <div className="container mx-auto px-4 sm:px-6 relative z-20 pt-24 sm:pt-28 md:pt-32 pb-20">
+        {/* Animated Content - only title, text, buttons fade on scroll */}
+        <motion.div 
+          style={{ opacity }} 
           className="text-center max-w-5xl mx-auto"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -61,21 +63,21 @@ const HeroSection = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3 }}
-            className="inline-flex items-center gap-2 glass-card px-5 py-2 mb-8"
+            className="inline-flex items-center gap-2 glass-card px-4 sm:px-5 py-2 mb-6 sm:mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm font-medium text-primary">Премиальная недвижимость на Бали</span>
+            <span className="text-xs sm:text-sm font-medium text-primary">Премиальная недвижимость на Бали</span>
           </motion.div>
 
           {/* Main Title */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold leading-tight mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-bold leading-[1.2] sm:leading-[1.3] md:leading-[1.25] mb-4 sm:mb-6 px-2">
             <span className="text-foreground">Magnum Estate:</span>
             <br />
             <span className="text-gradient-gold">Инвестиции в будущее Бали</span>
           </h1>
 
           <motion.p
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12"
+            className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 sm:mb-12 px-4 leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
@@ -85,51 +87,51 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-12 sm:mb-16 px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
           >
-            <Button variant="glow" size="xl">
+            <Button variant="glow" size="xl" className="w-full sm:w-auto touch-manipulation text-sm sm:text-base py-6 sm:py-7">
               Смотреть объекты
             </Button>
-            <Button variant="glass" size="xl">
+            <Button variant="glass" size="xl" className="w-full sm:w-auto touch-manipulation text-sm sm:text-base py-6 sm:py-7">
               Рассчитать доходность
             </Button>
           </motion.div>
+        </motion.div>
 
-          {/* Stats Card - Glassmorphism */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1 }}
-            className="glass-card-gold p-8 max-w-3xl mx-auto"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.2 + index * 0.15 }}
-                  className="flex flex-col items-center text-center group"
-                >
-                  <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors group-hover:animate-pulse-glow">
-                    <stat.icon className="w-7 h-7 text-primary" />
-                  </div>
-                  <div className="text-2xl md:text-3xl font-bold text-gradient-gold mb-1">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+        {/* Stats Card - Always visible, separate from fade effect */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1 }}
+          className="glass-card-gold p-6 sm:p-8 max-w-3xl mx-auto mt-8 sm:mt-12"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2 + index * 0.15 }}
+                className="flex flex-col items-center text-center group"
+              >
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-primary/20 transition-colors group-hover:animate-pulse-glow">
+                  <stat.icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
+                </div>
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gradient-gold mb-1">
+                  {stat.value}
+                </div>
+                <div className="text-xs sm:text-sm text-muted-foreground px-2">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Scroll Indicator */}
         <motion.div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 hidden sm:flex"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >

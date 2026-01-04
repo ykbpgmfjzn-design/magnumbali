@@ -35,7 +35,7 @@ const faqs = [
 
 const FAQSection = () => {
   return (
-    <section className="py-24 px-4 relative overflow-hidden" id="faq">
+    <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 relative overflow-hidden" id="faq">
       {/* Background effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
@@ -49,13 +49,13 @@ const FAQSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="text-primary/80 uppercase tracking-[0.3em] text-sm font-medium">
+          <span className="text-primary/80 uppercase tracking-[0.3em] text-xs sm:text-sm font-medium">
             Ответы на вопросы
           </span>
-          <h2 className="text-4xl md:text-5xl font-serif mt-4 mb-6 text-gradient-gold">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold leading-[1.25] sm:leading-[1.3] mt-3 sm:mt-4 mb-4 sm:mb-6 text-gradient-gold px-4">
             Часто задаваемые вопросы
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Мы собрали ответы на самые популярные вопросы наших клиентов
           </p>
         </motion.div>
@@ -65,9 +65,9 @@ const FAQSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className="glass-card-gold p-6 md:p-8 rounded-2xl"
+          className="glass-card-gold p-4 sm:p-6 md:p-8 rounded-2xl"
         >
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
             {faqs.map((faq, index) => (
               <motion.div
                 key={index}
@@ -78,12 +78,12 @@ const FAQSection = () => {
               >
                 <AccordionItem
                   value={`item-${index}`}
-                  className="glass border border-primary/10 rounded-xl px-6 overflow-hidden data-[state=open]:border-primary/30 transition-colors duration-300"
+                  className="glass border border-primary/10 rounded-xl px-4 sm:px-6 overflow-hidden data-[state=open]:border-primary/30 transition-colors duration-300"
                 >
-                  <AccordionTrigger className="text-left text-base md:text-lg font-medium text-foreground hover:text-primary transition-colors py-5 hover:no-underline">
+                  <AccordionTrigger className="text-left text-sm sm:text-base md:text-lg font-medium text-foreground hover:text-primary transition-colors py-4 sm:py-5 hover:no-underline touch-manipulation">
                     {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+                  <AccordionContent className="text-sm sm:text-base text-muted-foreground leading-relaxed pb-4 sm:pb-5">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -97,9 +97,9 @@ const FAQSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mt-12"
+          className="text-center mt-8 sm:mt-12"
         >
-          <p className="text-muted-foreground mb-4">
+          <p className="text-sm sm:text-base text-muted-foreground mb-4">
             Не нашли ответ на свой вопрос?
           </p>
           <a
