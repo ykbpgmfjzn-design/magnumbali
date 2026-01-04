@@ -105,7 +105,7 @@ const TestimonialsSection = () => {
           <span className="text-primary text-xs sm:text-sm font-medium uppercase tracking-widest mb-3 sm:mb-4 block">
             Отзывы
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-5xl font-serif font-bold mb-4 sm:mb-6 px-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-serif font-bold leading-[1.25] sm:leading-[1.3] mb-4 sm:mb-6 px-4">
             <span className="text-foreground">Что говорят </span>
             <span className="text-gradient-gold">наши клиенты</span>
           </h2>

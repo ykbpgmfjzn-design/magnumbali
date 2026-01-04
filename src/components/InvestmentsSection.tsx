@@ -48,7 +48,7 @@ const InvestmentsSection = () => {
           <span className="text-primary text-xs sm:text-sm font-medium tracking-wider uppercase">
             Инвестиции
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mt-3 sm:mt-4 mb-4 sm:mb-6 px-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold leading-[1.25] sm:leading-[1.3] mt-3 sm:mt-4 mb-4 sm:mb-6 px-4">
             Почему <span className="text-gradient-gold">Бали</span>?
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-4">
@@ -69,7 +69,7 @@ const InvestmentsSection = () => {
               <div className="w-12 h-12 sm:w-14 sm:h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:bg-primary/20 transition-colors">
                 <benefit.icon className="w-6 h-6 sm:w-7 sm:w-8 text-primary" />
               </div>
-              <h3 className="text-lg sm:text-xl font-serif font-bold mb-2 sm:mb-3">{benefit.title}</h3>
+              <h3 className="text-lg sm:text-xl font-serif font-bold leading-[1.3] mb-2 sm:mb-3">{benefit.title}</h3>
               <p className="text-xs sm:text-sm text-muted-foreground">{benefit.description}</p>
             </motion.div>
           ))}
@@ -82,7 +82,7 @@ const InvestmentsSection = () => {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="glass-card p-6 sm:p-8 md:p-12 text-center max-w-3xl mx-auto"
         >
-          <h3 className="text-2xl sm:text-3xl font-serif font-bold mb-3 sm:mb-4 px-4">
+          <h3 className="text-2xl sm:text-3xl font-serif font-bold leading-[1.3] mb-3 sm:mb-4 px-4">
             Готовы начать <span className="text-gradient-gold">инвестировать</span>?
           </h3>
           <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8 px-4">

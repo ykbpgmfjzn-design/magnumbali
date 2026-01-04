@@ -107,7 +107,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
           {project.location}
         </div>
 
-        <h3 className="text-xl sm:text-2xl font-serif font-bold text-foreground mb-3 sm:mb-4 group-hover:text-gradient-gold transition-all duration-300">
+        <h3 className="text-xl sm:text-2xl font-serif font-bold leading-[1.3] text-foreground mb-3 sm:mb-4 group-hover:text-gradient-gold transition-all duration-300">
           {project.name}
         </h3>
 
@@ -162,7 +162,7 @@ const ProjectsSection = () => {
           <span className="text-primary text-xs sm:text-sm font-medium tracking-wider uppercase">
             Наши проекты
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mt-3 sm:mt-4 mb-4 sm:mb-6 px-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold leading-[1.25] sm:leading-[1.3] mt-3 sm:mt-4 mb-4 sm:mb-6 px-4">
             Откройте мир <span className="text-gradient-gold">премиальной</span> недвижимости
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-4">

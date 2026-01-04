@@ -154,7 +154,7 @@ const MapSection = () => {
           <span className="text-primary/80 uppercase tracking-[0.3em] text-xs sm:text-sm font-medium">
             Наше присутствие
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif mt-3 sm:mt-4 mb-4 sm:mb-6 text-gradient-gold px-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold leading-[1.25] sm:leading-[1.3] mt-3 sm:mt-4 mb-4 sm:mb-6 text-gradient-gold px-4">
             Офисы и объекты
           </h2>
           <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
@@ -249,7 +249,7 @@ const MapSection = () => {
             transition={{ duration: 0.5 }}
             className="mt-6 sm:mt-8 glass-card-gold p-4 sm:p-6 rounded-xl max-w-2xl mx-auto"
           >
-            <h3 className="text-lg sm:text-xl font-serif text-foreground mb-2">
+            <h3 className="text-lg sm:text-xl font-serif font-bold leading-[1.3] text-foreground mb-2">
               {selectedLocation.name}
             </h3>
             <p className="text-sm sm:text-base text-muted-foreground mb-3 sm:mb-4">

@@ -68,7 +68,7 @@ const LeadCaptureForm = () => {
           <span className="text-primary text-xs sm:text-sm font-medium tracking-wider uppercase">
             Начните инвестировать
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mt-3 sm:mt-4 mb-4 sm:mb-6 px-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold leading-[1.25] sm:leading-[1.3] mt-3 sm:mt-4 mb-4 sm:mb-6 px-4">
             Получите <span className="text-gradient-gold">персональную</span> консультацию
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-4">
@@ -85,7 +85,7 @@ const LeadCaptureForm = () => {
             className="lg:col-span-2 space-y-4 sm:space-y-6"
           >
             <div className="glass-card p-4 sm:p-6 space-y-4 sm:space-y-6">
-              <h3 className="text-lg sm:text-xl font-serif font-bold text-foreground">Контакты</h3>
+              <h3 className="text-lg sm:text-xl font-serif font-bold leading-[1.3] text-foreground">Контакты</h3>
               {contactInfo.map((item, index) => (
                 <motion.div
                   key={item.label}

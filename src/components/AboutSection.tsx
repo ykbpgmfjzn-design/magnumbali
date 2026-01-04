@@ -31,7 +31,7 @@ const AboutSection = () => {
             <span className="text-primary text-xs sm:text-sm font-medium tracking-wider uppercase">
               О компании
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mt-3 sm:mt-4 mb-4 sm:mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold leading-[1.25] sm:leading-[1.3] mt-3 sm:mt-4 mb-4 sm:mb-6">
               Magnum Estate — <span className="text-gradient-gold">лидер</span> рынка
             </h2>
             <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 leading-relaxed">

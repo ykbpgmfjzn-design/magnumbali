@@ -72,7 +72,7 @@ const Footer = () => {
 
           {/* Company Links */}
           <div>
-            <h4 className="text-base sm:text-lg font-serif font-bold text-foreground mb-4 sm:mb-6">Компания</h4>
+            <h4 className="text-base sm:text-lg font-serif font-bold leading-[1.3] text-foreground mb-4 sm:mb-6">Компания</h4>
             <ul className="space-y-3 sm:space-y-4">
               {links.company.map((link) => (
                 <li key={link.name}>
@@ -90,7 +90,7 @@ const Footer = () => {
 
           {/* Legal Links */}
           <div>
-            <h4 className="text-base sm:text-lg font-serif font-bold text-foreground mb-4 sm:mb-6">Информация</h4>
+            <h4 className="text-base sm:text-lg font-serif font-bold leading-[1.3] text-foreground mb-4 sm:mb-6">Информация</h4>
             <ul className="space-y-3 sm:space-y-4">
               {links.legal.map((link) => (
                 <li key={link.name}>

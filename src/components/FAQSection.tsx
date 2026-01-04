@@ -52,7 +52,7 @@ const FAQSection = () => {
           <span className="text-primary/80 uppercase tracking-[0.3em] text-xs sm:text-sm font-medium">
             Ответы на вопросы
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif mt-3 sm:mt-4 mb-4 sm:mb-6 text-gradient-gold px-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold leading-[1.25] sm:leading-[1.3] mt-3 sm:mt-4 mb-4 sm:mb-6 text-gradient-gold px-4">
             Часто задаваемые вопросы
           </h2>
           <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">

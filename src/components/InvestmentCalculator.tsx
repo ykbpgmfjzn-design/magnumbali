@@ -60,7 +60,7 @@ const InvestmentCalculator = () => {
             <Calculator className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             Калькулятор инвестиций
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-4 sm:mb-6 px-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold leading-[1.25] sm:leading-[1.3] mb-4 sm:mb-6 px-4">
             Рассчитайте <span className="text-gradient-gold">вашу прибыль</span>
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-4">
