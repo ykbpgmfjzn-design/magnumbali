@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo.png";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,15 +35,19 @@ const Header = () => {
       <div className="container mx-auto px-4 flex items-center justify-between">
         <motion.a
           href="#"
-          className="flex items-center gap-3"
+          className="flex items-center"
           whileHover={{ scale: 1.02 }}
         >
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center">
-            <span className="text-lg font-serif font-bold text-primary-foreground">M</span>
+          <div className="relative">
+            {/* Glow effect behind logo */}
+            <div className="absolute inset-0 blur-xl bg-primary/30 scale-150 opacity-60" />
+            {/* Drop shadow for contrast on any background */}
+            <img
+              src={logo}
+              alt="Magnum Estate"
+              className="h-10 sm:h-12 w-auto relative z-10 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] brightness-110 contrast-110"
+            />
           </div>
-          <span className="text-xl font-serif font-bold text-gradient-gold tracking-wide hidden sm:block">
-            MAGNUM ESTATE
-          </span>
         </motion.a>
 
         {/* Desktop Navigation */}
