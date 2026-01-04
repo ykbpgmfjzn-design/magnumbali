@@ -180,7 +180,7 @@ const InvestmentCalculator = () => {
                 {/* Construction Growth */}
                 <div>
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-2">
-                    <label className="text-base sm:text-lg font-medium text-foreground">Рост стоимости (период стройки)</label>
+                    <label className="text-base sm:text-lg font-medium text-foreground">Рост стоимости в год (период стройки)</label>
                     <span className="text-xl sm:text-2xl font-bold text-gradient-gold">{constructionGrowth}%</span>
                   </div>
                   <Slider
@@ -200,7 +200,7 @@ const InvestmentCalculator = () => {
                 {/* Post-Construction Growth */}
                 <div>
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-2">
-                    <label className="text-base sm:text-lg font-medium text-foreground">Рост стоимости (после ввода)</label>
+                    <label className="text-base sm:text-lg font-medium text-foreground">Рост стоимости в год (готовый проект)</label>
                     <span className="text-xl sm:text-2xl font-bold text-gradient-gold">{postConstructionGrowth}%</span>
                   </div>
                   <Slider
