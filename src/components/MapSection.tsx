@@ -10,7 +10,7 @@ const locations = [
   {
     id: 1,
     type: "office",
-    name: "Головной офис — Бали",
+    name: "Головной офис - Bali",
     address: "Jl. Bumbak No.156, Kerobokan, Kec. Kuta Utara, Kabupaten Badung, Bali 80361",
     phone: "+62 812 3456 7890",
     email: "bali@magnumestate.ru",
@@ -35,14 +35,14 @@ const locations = [
   {
     id: 4,
     type: "property",
-    name: "Magnum Resort Sanur",
+    name: "Magnum Resort Sanur - Bali",
     address: "Jl. Danau Tamblingan, Sanur, Denpasar Selatan, Kota Denpasar, Bali",
     coordinates: [115.2626, -8.6918] as [number, number],
   },
   {
     id: 5,
     type: "property",
-    name: "Sky Stars Villas",
+    name: "Sky Stars Villas - Bali",
     address: "Jl. Taman Paradise Banjar Bakung Sari, Ungasan",
     coordinates: [115.144978, -8.816650] as [number, number],
   },
